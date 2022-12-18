@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Password Hasher - SB Admin</title>
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+              <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    </head>
+    <style type="text/css">
+        button{
+            font-weight: 600 !important;
+        }
+    </style>
+    <body class="sb-nav-fixed">
+        <input type="text"  id="copytext" style="position: absolute;top: -889px;" >
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3" href="index.html">Password Hasher</a>
+            <!-- Sidebar Toggle-->
+            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Navbar Search-->
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                
+            </form>
+            <!-- Navbar-->
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                        
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="http://localhost/password/access/logout.html">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div id="layoutSidenav">
+           
+            <div id="layoutSidenav_content">
+                <main>
+                    <div class="container-fluid px-4">
+                        <h1 class="mt-4">Dashboard</h1>
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active usern">Dashboard</li>
+                        </ol>
+                        
+                        <style>
+                            .add_pwd_inp{
+                                min-height: 200px;
+                                border: 1px solid #e1dcdc;
+                                border-radius: 10px;
+                                margin-top: 10px;
+                                padding-top: 50px;
+                            }
+                        </style>
+                        <div class="row add_pwd_inp">
+                            <h3>Add password</h3>
+                            <div class="if_error" style="text-align: center;padding-top: 10px;display: none;">
+                               <b><span class="text-danger if_error_text"></span></b>
+                            </div>
+                               
+                         <div class="col-xl-3 col-md-3">
+                             <form id="inp_form">
+                                <div><label class="form-label" for="web_name"><b>Website Name</b></label></div>
+                                   <div class="input-group">
+                                        <input class="form-control" type="text" name="web_name" id="web_name" placeholder=" eg Facebook,twitter" aria-label="Search for..." >                    
+                                   </div>
+                         </div>
+
+                         <div class="col-xl-3 col-md-3">
+                                <div>  <label class="form-label" for="pwd_len"><b>Password length</b></label></div>
+                                   <div class="input-group">
+                                        <input class="form-control" name="pwd_len"  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" type = "number" maxlength = "2" id="pwd_len" placeholder="Password length" aria-label="Search for..." >                    
+                                   </div>
+                                    
+                         </div>
+
+                         <div class="col-xl-3 col-md-3">
+                            
+                             <div>  <label class="form-label" for="pwd_len"><b>Add characters(optional)</b></label></div>
+                                <div class="form-check" style="margin-top: 10px;">
+                                      <input class="form-check-input" type="checkbox" name="check" value="" id="flexCheckDefault"  />
+                                      <label class="form-check-label" for="flexCheckDefault" style="margin-right: 12px;"><b>@</b></label>
+                                      
+                                      
+                                      <input type="checkbox" name="hash" id="flexCheckDefaul" >
+                                      <label class="form-check-label" for="flexCheckDefaul"  style="margin-right: 12px;"><b>#</b></label>
+
+                                      <input type="checkbox" name="dollar" id="flexCheckDefau" >
+                                      <label class="form-check-label" for="flexCheckDefau"><b>$</b></label>
+                                      <!-- <label class="form-check-label" for="flexCheckDefault"><b>Should password contain the @ symbol</b></label> -->
+                                </div>
+                                    
+                         </div>
+
+                         <div class="col-xl-3 col-md-3">
+                                    <div class="">
+                                          <button type="submit" id="gen" class="btn btn-primary btn-block btn-lg mb-4" style="margin-top: 15px;"> Generate Password</button> 
+                                     </div> 
+    
+                                    
+                         </div>
+
+                                                                       <!-- Default checkbox -->
+<!--                                <div class="form-check">
+                                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" />
+                                      <label class="form-check-label" for="flexCheckDefault">Should password @ symbol</label>
+                                    </div>
+                                     <div class="">
+                                          <button type="submit" id="gen" class="btn btn-primary btn-block mb-4"> Generate Password</button> 
+                                     </div> -->
+
+                               </form>
+                           
+
+                            
+                        </div>
+                        <br><br>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 15px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: #f1f1f1;
+}
+
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 2;
+    display: block;
+    width: 2.375rem;
+    height: 1.475rem;
+    line-height: 2.375rem;
+    text-align: center;
+    pointer-events: none;
+    color: #aaa;
+    padding-top: 13px;
+}
+
+
+</style>
+
+
+<div style="border: 1px solid #e1dcdc;border-radius: 10px;padding: 15px;  box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;;">
+                            
+
+                                <div><h3>Password Saved</h3></div>
+                                 <div class="form-group has-search">
+                                    <span class="fa fa-search form-control-feedback"></span>
+<input type="text" class="form-control"  id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name"> 
+</div>
+<table id="myTable" style="">
+  <tr class="header">
+    
+    <th>Name</th>
+    <th>password</th>
+    <th>state</th>
+    <th>date</th>
+  </tr>
+  <tbody id="p_details">
+                                        
+                                       
+                                        
+  </tbody>
+ 
+</table>
+<style type="text/css">
+    tr:nth-child(even) {
+  background-color: ;
+}
+</style>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }
+}
+</script>
+
+
+                        <!-- <div class="card mb-4" style="display:none">
+                            <div class="card-header">
+                                <i class="fas fa-table me-1"></i>
+                                Passwords
+                            </div>
+                            <div class="card-body">
+                                <table id="datatablesSimple">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>password</th>
+                                            <th>state</th>
+                                            <th>date</th>
+                                        
+                                    
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>password</th>
+                                            <th>state</th>
+                                            <th>date</th>
+                                            
+                                        </tr>
+                                    </tfoot>
+                                    <tbody id="p_details">
+                                        
+                                       
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div> -->
+                    </div>
+                </main> <br> <br>
+                <!-- <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer> -->
+            </div>
+        </div>
+
+
+
+
+
+
+<div id="id01" class="modal">
+  
+  <form class="modal-content animate" action="" id="del" method="post">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      Delete Request
+    </div>
+
+    <div class="m_container">
+      
+    </div>
+
+   
+  </form>
+</div>
+
+<script>
+// Get the modal
+var modal = document.getElementById('id01');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+</script>
+
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/*
+/* Set a style for all buttons */
+.m_container button {
+  /*background-color: #04AA6D;*/
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 40%;
+}*/
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+/*.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}*/
+.imgcontainer {
+    text-align: center;
+    /* margin: 24px 0 12px 0; */
+    position: relative;
+    background: red;
+    height: 40px;
+    line-height: 40px;
+    color: #fff;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 400px; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+.t_center{text-align: center;font-size: 17px;}
+</style>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="assets/demo/chart-area-demo.js"></script>
+        <script src="assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="js/datatables-simple-demo.js"></script>
+        <script type="text/javascript">
+            $("#inp_form").on('submit', function(e){                                   
+                  e.preventDefault();
+                  
+                  var name = document.getElementById("web_name").value;
+                  var pwd_length = document.getElementById("pwd_len").value;
+                 
+                                
+                     if (name=='' || pwd_length=='') {
+                        $('.if_error').show();
+                               $('.if_error_text').html('Fill in all inputs');
+                             
+                            return false;
+                     }
+                     if (pwd_length<10 || pwd_length>50 ) {
+                        $('.if_error').show();
+                               $('.if_error_text').html("password length range 15 to 50");
+                        return false;
+                     }
+                      $.ajax({
+
+                                 type: "POST",
+                                url: "http://localhost/password/auth/insert_details",
+                                data: new FormData(this),
+                                 contentType: false,
+                                 cache: false,
+                                 processData:false,
+                                 beforeSend: function(){
+                                $('#gen').attr("disabled","disabled");
+                                $('#gen').html(".....");
+                                                
+                                },
+                                success: function(r) {
+                                      
+                                      var msg=JSON.parse(r);
+
+                            if(msg.status=='success'){
+                                  $('#p_details').html("")
+                                      get_table()
+                                      $('.if_error_text').html('<span class="text-success">'+msg.msg+'</span>');
+                                      
+                             }else{
+                            
+                               $('.if_error').show();
+                               $('.if_error_text').html(msg.msg);
+                             }
+                                $("#gen").removeAttr("disabled")
+                                $('#gen').html("Generate");
+                          
+
+                                  
+                                },
+                                error: function(r) {
+                                   $("#gen").removeAttr("disabled")
+                                $('#gen').html("Generate");
+                          
+                                }
+
+                        });
+
+            })
+
+
+     function get_table(){   
+
+
+            $.ajax({
+                    type: "GET",
+                    url: "http://localhost/password/auth/get_details",                
+                    contentType: "application/json",
+                    cache:false,
+                    data: '',
+                    processData:false,
+                    success:function(r){
+                           
+                             var user=JSON.parse(r)
+                                 $.each(user,function(index){
+                                
+
+                                    $('#p_details').append(" <tr class='row_pwd"+this['password_id']+"'>  <td> "+this['site_name']+"</td><td>"+this['token']+"</td><td><button  class='btn btn-success copy' id='"+this['token']+"' >copy password </button> <button class='btn btn-danger del_pop' id='"+this['password_id']+"' title='"+this['site_name']+"' name='"+this['token']+"' >Delete password</button></td> <td>"+this['datee']+"</td></tr>  ");
+
+                                     })
+                                
+                    }
+                  })
+        }
+
+
+         $.ajax({
+                    type: "GET",
+                    url: "http://localhost/password/auth/logged",                
+                    contentType: "application/json",
+                    cache:false,
+                    data: '',
+                    processData:false,
+                    success:function(r){
+                           
+                             var user=JSON.parse(r)
+                                 if (user.status) {
+                                    window.location="http://localhost/password/login.html"
+                                 }
+
+                          $('.usern').html(user.name)
+
+                                
+                                
+                    }
+                  })
+
+
+ $(document).on('click','.del_pop',function(){
+         var id=$(this).attr('id');
+         var title=$(this).attr('title');
+         var pwd=$(this).attr('name');
+         
+         $('#id01').show()
+         $('.m_container').html('<div class="t_center">Are you sure you want to delete this password  </div><div class="t_center">Site Name:'+title+' </div><div class="t_center">'+pwd+' </div> <div> <button class="btn btn-danger del_request" id="'+id+'" style="margin-left:23px"> Yes </button> <button class="btn btn-info close_pop" style="margin-left:20px"> NO </button> </div>')
+         // alert(id)
+           // $(this).html('accepted')
+           // $('.del_req'+id).html('Deleted')
+               // $.ajax({j
+               //           type: "POST",
+               //          url: "api/del_request",
+               //          processData: false,
+               //          contentType: "application/json",
+               //          data: '{  "userId": "'+ $(this).attr('id')+'" }',
+               //          cache: false,
+               //          success: function(r) {
+               //          },
+               //          error: function(r) {
+               //              $('.ttt'+id).html('unfollow')
+               //              $(button).attr('title' , 'unfollow');
+               //          }
+               //  });
+ })
+
+ $(document).on('click','.del_request',function(){
+          $('#id01').hide()
+         var id=$(this).attr('id');
+          $('.row_pwd'+id).html('<h2> Deleted </h2>')
+          $('.row_pwd'+id).fadeOut(2000)
+
+          $('.del_req'+id).html('Deleted')
+              
+               $.ajax({
+                         type: "POST",
+                        url: "http://localhost/password/auth/del_request",
+                        processData: false,
+                        contentType: "application/json",
+                        data: '{  "userId": "'+ $(this).attr('id')+'" }',
+                        cache: false,
+                        success: function(r) {
+                        },
+                        error: function(r) {
+                            // $('.ttt'+id).html('unfollow')
+                            // $(button).attr('title' , 'unfollow');
+                        }
+                });
+
+        
+            
+ })
+ $(document).on('click','.close_pop',function(){
+          $('#id01').hide()
+        
+        
+            
+ })
+
+  $("#del").on('submit', function(e){                                   
+                  e.preventDefault();
+  })    
+
+ $(document).on('click','.copy',function(){
+    var id=$(this).attr('id');
+    $('#copytext').val(id)
+  var copyText = document.getElementById("copytext");
+
+  // Select the text field
+  copyText.select();
+  copyText.setSelectionRange(0, 99999); // For mobile devices
+
+   // Copy the text inside the text field
+  navigator.clipboard.writeText(copyText.value);
+
+  // Alert the copied text
+  alert("Password Copied: " + copyText.value);
+})     
+
+        get_table();
+        </script>
+    </body>
+</html>
